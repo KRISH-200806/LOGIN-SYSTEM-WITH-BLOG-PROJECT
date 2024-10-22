@@ -14,7 +14,8 @@ function Allroutes() {
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/bloglist" element={<Bloglist />}></Route>
         <Route path="/blogpost" element={<BlogPost />}></Route>
-        <Route path='/editblog' element={<Editblog/>}></Route>
+        <Route path='/editblog/:id/:userId' element={<Editblog/>}></Route>
+        
       </Routes>
     </div>
   );

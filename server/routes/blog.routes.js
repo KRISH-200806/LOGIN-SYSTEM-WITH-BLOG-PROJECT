@@ -12,7 +12,7 @@ const Blogrouter = express.Router();
 
 Blogrouter.get("/get",getpost)
 Blogrouter.post("/createblog", isAuth, createPost);
-Blogrouter.patch("/put/:blogId/:userId", isAuth, CheckRole, updatepost);
+Blogrouter.patch("/put/:blogId/:userId", isAuth, updatepost);
 Blogrouter.delete("/delete/:blogId/:userId",isAuth,CheckRole, deletepost);
 
 

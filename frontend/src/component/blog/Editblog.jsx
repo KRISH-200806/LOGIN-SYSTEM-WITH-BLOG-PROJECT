@@ -1,28 +1,31 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
 
 
 const initalvalue = {
+
   title: "",
   content: "",
   author: "",
 };
 function Editblog() {
   const [formdata, setformdata] = useState(initalvalue);
-
+  
   const { title,content,author } = formdata;
-
-  const {blogId}=useParams()
-
-//   useEffect(() => {
-//     axios
-//       .get(`${process.env.REACT_APP_BASEURL}/post/get`)
-//       .then((response) => setformdata(response.data))
-//       .catch((error) => console.error("Error fetching product:", error));
-//   }, []);
+  
+  const {id,userId}=useParams()
+  
+  // useEffect(() => {
+  //   axios
+  //     .post(`${process.env.REACT_APP_BASEURL}/post/get/${id}`, {formdata}, {
+  //       withCredentials: true,
+  //     })
+  //     .then((response) => console.log(response.data))
+  //     .catch((error) => console.error("Error fetching product:", error));
+  // }, [id]);
 
   const handlchange = (e) => {
     const { name, value } = e.target;
@@ -31,16 +34,16 @@ function Editblog() {
 
   const handlsubmit = (e) => {
     e.preventDefault();
+ 
     axios
-      .patch(`${process.env.REACT_APP_BASEURL}/post/put/${blogId}`, formdata)
+      .patch(
+        `${process.env.REACT_APP_BASEURL}/post/put/${id}/${userId}`,
+         formdata ,
+        { withCredentials: true }
+      )
       .then((res) => {
-        setformdata(res.data);
-        alert("Product updated successfully");
-        setformdata({
-          title: "",
-          content: "",
-          author: "",
-        });
+        console.log(res)
+       setformdata(res);
       })
       .catch((err) => console.log(err));
   };
@@ -66,7 +69,7 @@ function Editblog() {
                   onChange={handlchange}
                 />
               </Form.Group>
-             
+
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Label>content</Form.Label>
                 <Form.Control
